@@ -1,11 +1,18 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { useSelector, useDispatch } from "react-redux";
 import { FiDelete } from "react-icons/fi";
 
 const MainCart = () => {
-  const { products, totalPrice } = useSelector((state) => state.CartReducer);
+  const [products, setProducts] = useState([]);
+  const [totalPrice, setTotalPrice] = useState(0);
+  useEffect(() => {
+    setProducts(JSON.parse(localStorage.getItem("products")));
+    setTotalPrice(localStorage.getItem("totalPrice"));
+  }, [products]);
+
   const dispatch = useDispatch();
+
   return (
     <>
       <div className="container-fluid">
@@ -15,7 +22,7 @@ const MainCart = () => {
         <div className="container">
           <div className="row">
             <Left className="col-md-9">
-              {products.length == 0 ? (
+              {products.length === 0 ? (
                 <>
                   <h3>Your cart is empty</h3>
                 </>
@@ -127,6 +134,7 @@ const Button = styled.span`
     color: red;
     margin-top: 85px;
     font-size: 30px;
+    cursor: pointer;
   }
   @media screen and (max-width: 768px) {
     .icon {
