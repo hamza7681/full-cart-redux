@@ -19,6 +19,7 @@ const CartReducer = (state = initialState, action) => {
           "products",
           JSON.stringify([...state.products, product])
         );
+        localStorage.setItem("totalPrice", newPrice);
         return {
           products: [...state.products, product],
           totalPrice: newPrice,
@@ -30,6 +31,7 @@ const CartReducer = (state = initialState, action) => {
       const filterProducts = state.products.filter((item) => item.id !== id);
       const remPrice = state.totalPrice - discount;
       localStorage.setItem("products", JSON.stringify(filterProducts));
+      localStorage.setItem("totalPrice", remPrice);
       return {
         products: filterProducts,
         totalPrice: remPrice,
