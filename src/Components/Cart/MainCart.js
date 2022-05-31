@@ -1,15 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import styled from "styled-components";
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { FiDelete } from "react-icons/fi";
 
 const MainCart = () => {
-  const [products, setProducts] = useState([]);
-  const [totalPrice, setTotalPrice] = useState(0);
-  useEffect(() => {
-    setProducts(JSON.parse(localStorage.getItem("products")));
-    setTotalPrice(localStorage.getItem("totalPrice"));
-  }, [products]);
+  const { products, totalPrice } = useSelector((state) => state.CartReducer);
 
   const dispatch = useDispatch();
 

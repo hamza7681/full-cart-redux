@@ -3,6 +3,7 @@ const initialState = {
   totalPrice: 0,
 };
 
+
 const CartReducer = (state = initialState, action) => {
   switch (action.type) {
     case "AddToCart":
@@ -37,7 +38,14 @@ const CartReducer = (state = initialState, action) => {
         totalPrice: remPrice,
       };
     default:
-      return state;
+      return {
+        products: localStorage.getItem("products")
+          ? JSON.parse(localStorage.getItem("products"))
+          : state.products,
+        totalPrice: localStorage.getItem("totalPrice")
+          ? JSON.parse(localStorage.getItem("totalPrice"))
+          : state.totalPrice,
+      };
   }
 };
 
